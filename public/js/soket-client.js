@@ -4,6 +4,16 @@ const lblOffline = document.querySelector('#lblOffline');
 const lblOnline = document.querySelector('#lblOnline');
 const textMesaje = document.querySelector('#textMesaje')
 const enviarMensaje = document.querySelector('#enviarMensaje')
+const autorchat = document.querySelector('#textAutor')
+let Mensaje = document.getElementById('mensaje')
+
+let escrribi = document.getElementById('escribiendo')
+
+
+
+
+
+
 socket.on('connect', () => {
     console.log('Conectado')
     lblOffline.style.display = 'none'
@@ -15,18 +25,36 @@ socket.on('disconnect', () => {
     lblOnline.style.display = 'none'
 
 })
-socket.on('respuesta-mesaje', (paylaod) => {
-    console.log(paylaod)
-})
-enviarMensaje.addEventListener('click', () => {
-    const mesaje = textMesaje.value;
-    const payload = {
-        mesaje,
-        id: '123454',
-        fecha: new Date().getTime()
+socket.on('respuesta-ecribiendo', function(array) {
 
-    }
-    socket.emit('enviar-mensaje', payload, (id) => {
-        console.log('la respuesta del sevidor es', id)
+    escrribi.innerHTML = `<p>
+    <strong>${array} </strong>:<em> Escribiendo....</em>
+    </p>`
+    console.log(array)
+
+})
+socket.on('respuesta-mensaje', function(array) {
+    escrribi.innerHTML = ' '
+    Mensaje.innerHTML += `<p>
+    <strong>${array.autor} </strong>: <em>${array.mensaje}</em>
+    </p>`
+    console.log(array)
+
+})
+
+
+
+enviarMensaje.addEventListener('click', () => {
+    const mesaje = textMesaje.value
+    socket.emit('enviar-mensaje', {
+        autor: autorchat.value,
+        mensaje: mesaje,
+        fecha: new Date().getTime()
     })
+
+})
+textMesaje.addEventListener('keypress', function() {
+    console.log(autorchat.value)
+    socket.emit('chatecribi', autorchat.value)
+
 })

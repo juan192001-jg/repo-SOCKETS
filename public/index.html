@@ -17,15 +17,30 @@
         <samp id="lblOffline" class="text-danger">offline</samp>
     </h1>
     <hr>
+    <h1>Chat Socket</h1>
+    <div id="escribiendo"></div>
+    <div id="mensaje"></div>
+    <hr>
+
     <div class="row">
         <div class="col-5 container">
-            <input type="text" id="textMesaje" class="form-control">
+
+            <input type="text" id="textAutor" class="form-control" placeholder="Ingrese su nombre  ">
         </div>
+        <div class="col-5 container">
+
+            <input type="text" id="textMesaje" class="form-control" placeholder="Ingrese un mensaje ">
+        </div>
+
         <div class="col">
             <button id="enviarMensaje" class="btn-primary">Enviar</button>
         </div>
 
+
     </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
     <script src="./socket.io/socket.io.js"></script>
     <script src="./js/soket-client.js"></script>
 </body>
