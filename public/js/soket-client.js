@@ -51,6 +51,7 @@ enviarMensaje.addEventListener('click', () => {
         mensaje: mesaje,
         fecha: new Date().getTime()
     })
+    textMesaje.value = ''
 
 })
 textMesaje.addEventListener('keypress', function() {
